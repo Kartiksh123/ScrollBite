@@ -1,4 +1,6 @@
-﻿# ScrollBite
+# ScrollBite
+
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https%3A%2F%2Fgithub.com%2FKartiksh123%2FScrollBite)
 
 ScrollBite is a food discovery app for short cooking and restaurant videos. Users can like, save, and comment on reels; food partners can create an account and upload videos.
 
@@ -54,7 +56,7 @@ GitHub stores the source repository. GitHub Pages only serves static files and d
 
 1. Create a GitHub repository and push this project. `.env` files, dependencies, and the frontend build output are ignored by Git.
 2. Create an Atlas database user and database, and add the Render service's outbound IP ranges to the Atlas project's IP access list. Keep the database user limited to the ScrollBite database.
-3. In Render, create a Blueprint from the GitHub repository and apply `render.yaml`.
+3. Use the **Deploy to Render** button above, connect your Render account to GitHub, and apply the Blueprint from `render.yaml`.
 4. Set the Blueprint's `MONGODB_URI`. Render generates `JWT_SECRET`. Demo reels work without ImageKit; add the ImageKit values in the Render service settings if partner uploads should be enabled.
 5. After the first deploy is healthy, open the Render URL. The root route opens the user registration page.
 6. To populate the hosted database with the demo partners and reels, set `MONGODB_URI` locally to the Atlas connection string and run `npm run seed:demo` from `backend/`. This inserts the demo records into that database.

@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: scrollbite
+    name: scrollbite-kartiksh123
     runtime: node
     plan: free
     buildCommand: npm ci --prefix backend && npm ci --prefix frontend --include=dev && npm run build --prefix frontend
