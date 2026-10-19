@@ -40,7 +40,7 @@ Open `http://localhost:5173`. On Android using the same Wi-Fi, start Vite with `
 
 ### Demo data
 
-The demo seed creates five fictional food partners and 15 reels. The clips and their Pexels source credits are in [`videos/`](videos/README.md). From `backend/`, run:
+The demo seed creates five fictional food partners and 15 reels. The Render Blueprint runs this idempotent seed at service startup; for local development, the clips and their Pexels source credits are in [`videos/`](videos/README.md). From `backend/`, run:
 
 ```powershell
 npm run seed:demo
@@ -63,6 +63,6 @@ GitHub stores the source repository. GitHub Pages only serves static files and d
 3. Use the **Deploy to Render** button above, connect your Render account to GitHub, and apply the Blueprint from `render.yaml`.
 4. Set the Blueprint's `MONGODB_URI`. Render generates `JWT_SECRET`. Demo reels work without ImageKit; add the ImageKit values in the Render service settings if partner uploads should be enabled.
 5. After the deploy is healthy, open the [live demo](https://scrollbite-kartiksh123-55ct.onrender.com/). The root route opens the user registration page.
-6. To populate the hosted database with the demo partners and reels, set `MONGODB_URI` locally to the Atlas connection string and run `npm run seed:demo` from `backend/`. This inserts the demo records into that database.
+6. The Blueprint seeds the demo partners and reels at startup, so the live feed is populated after a successful deploy.
 
 A free Render web service may sleep after 15 minutes without traffic and take about a minute to wake on the next request. See [Render's free instance notes](https://render.com/docs/free). For Atlas networking, use [Render's outbound IP ranges](https://render.com/docs/outbound-ip-addresses) in the [Atlas IP access list](https://www.mongodb.com/docs/atlas/security/ip-access-list/).

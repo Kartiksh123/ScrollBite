@@ -55,20 +55,21 @@ async function seedDemo() {
     const foodPartner = partnersByEmail.get(reel.partner)
     const { legacyName, video, ...foodFields } = reel
     const oldSeed = await foodModel.findOne({ foodPartner, name: legacyName })
-    const fields = { ...foodFields, video: `/media/${video}`, foodPartner }
+    const fields = { name: foodFields.name, description: foodFields.description, video: `/media/${video}`, foodPartner }
     if (oldSeed) {
       await foodModel.updateOne({ _id: oldSeed._id }, { $set: fields }, { runValidators: true })
       continue
     }
-    await foodModel.updateOne(
-      { foodPartner, name: reel.name },
-      { $set: fields },
-      { upsert: true, runValidators: true }
-    )
+    const existingSeed = await foodModel.findOne({ foodPartner, name: reel.name })
+    if (existingSeed) {
+      await foodModel.updateOne({ _id: existingSeed._id }, { $set: fields }, { runValidators: true })
+    } else {
+      await foodModel.create({ ...fields, likeCount: reel.likeCount, savesCount: reel.savesCount })
+    }
   }
 
   console.log(`Demo seed ready: ${partnerSeeds.length} food partners and ${reelSeeds.length} reels.`)
-  console.log(`Demo partner password: ${demoPassword}`)
+  if (process.env.NODE_ENV !== 'production') console.log(`Demo partner password: ${demoPassword}`)
 }
 
 seedDemo()

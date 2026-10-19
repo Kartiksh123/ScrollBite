@@ -4,7 +4,7 @@ services:
     runtime: node
     plan: free
     buildCommand: npm ci --prefix backend && npm ci --prefix frontend --include=dev && npm run build --prefix frontend
-    startCommand: npm start --prefix backend
+    startCommand: npm run seed:demo --prefix backend && npm start --prefix backend
     healthCheckPath: /health
     envVars:
       - key: NODE_ENV
