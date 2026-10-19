@@ -72,6 +72,10 @@ async function seedDemo() {
   if (process.env.NODE_ENV !== 'production') console.log(`Demo partner password: ${demoPassword}`)
 }
 
-seedDemo()
-  .catch((error) => { console.error('Demo seed failed:', error.message); process.exitCode = 1 })
-  .finally(async () => { await mongoose.disconnect() })
+module.exports = seedDemo
+
+if (require.main === module) {
+  seedDemo()
+    .catch((error) => { console.error('Demo seed failed:', error.message); process.exitCode = 1 })
+    .finally(async () => { await mongoose.disconnect() })
+}
